@@ -18,6 +18,6 @@
  *	Función principal para resolver el problema del Comando Militar
  *	mediante procesos.
  */
-void main_process(int, int, int, bomb *, target *);
+void main_process(int, int, target *, int, bomb *);
 
 #endif

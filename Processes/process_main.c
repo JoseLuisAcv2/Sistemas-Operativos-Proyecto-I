@@ -25,7 +25,7 @@
  *	Función principal para resolver el problema del Comando Militar
  *	mediante procesos.
  */
-void main_process(int N, int B, int T, bomb *b_arr, target *t_arr) {
+void main_process(int N, int T, target *t_arr, int B, bomb *b_arr) {
 	/*
 	 *  Resolver problema con procesos ayudantes.
 	 */
@@ -33,8 +33,7 @@ void main_process(int N, int B, int T, bomb *b_arr, target *t_arr) {
 
 		// Ubicar targets en memoria compartida
 		int shm_tgt_id;
-		target *t_arr_orig;
-		//compartir_targets(t_arr,t_arr_orig,T,&shm_tgt_id);
+		share_targets(&t_arr,T,&shm_tgt_id);
 
 		// Crear semáforos
 		int shm_sem_id;
@@ -49,7 +48,7 @@ void main_process(int N, int B, int T, bomb *b_arr, target *t_arr) {
 		
 		if(getpid() == ps_parent_pid) {
 			// Trabajo del padre
-			f_parent_process(N,T,t_arr,t_arr_orig,shm_tgt_id,sem_arr,shm_sem_id);
+			f_parent_process(N,T,t_arr,t_arr,shm_tgt_id,sem_arr,shm_sem_id);
 		} else {
 			// Trabajo de los hijos
 			f_child_process(child_id,N,T,t_arr,B,b_arr,sem_arr);

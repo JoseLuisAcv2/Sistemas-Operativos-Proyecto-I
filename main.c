@@ -22,19 +22,24 @@ int main() {
 	////////////// LEER FLAGS Y ARCHIVO /////////////
 	/////////////////////////////////////////////////
 
-	int N, T, B;
+	int N, T, B, nProc = 3;
 	target *t_arr;
 	bomb *b_arr;
-	char *file;
+	char *file = "in";
 
 	// Leer archivo de datos
 	read(file, &N, &T, &B, &t_arr, &b_arr);
 
-	N = min(N,B);
 
-	// aqui falta todo
+	/////// prpbando.... //////
 
-	get_results(T,t_arr);
+	nProc = min(nProc,B);
+
+	//main_thread(nProc,T,t_arr,B,b_arr);
+	main_process(nProc,T,t_arr,B,b_arr);
+
+	free(t_arr);
+	free(b_arr);
 
 	return 0;
 }

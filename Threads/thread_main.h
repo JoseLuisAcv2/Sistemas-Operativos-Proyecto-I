@@ -16,6 +16,6 @@
  *	Función principal para resolver el problema del Comando Militar
  *	mediante hilos.
  */
-void main_thread(char *file, int NThread);
+void main_thread(int NThread, int T, target *trgt, int B, bomb *bmb);
 
 #endif

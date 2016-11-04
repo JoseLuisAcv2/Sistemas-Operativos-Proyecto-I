@@ -68,31 +68,17 @@ void destroy_semaphores(sem_t *sem_arr, int n, int *shm_sems_id) {
  *  Función para copiar los objetivos en memoria compartida y
  *  ser modificados por varios procesos.
  */
-void share_targets(target *t_arr, target *t_arr_orig, int n, int *shm_tgt_id) {
+void share_targets(target **t_arr, int n, int *shm_tgt_id) {
 
-	*t_arr_orig = *t_arr;
+	target * t_arr_orig = *t_arr;
 	*shm_tgt_id = shmget(IPC_PRIVATE, n*sizeof(target), IPC_CREAT | 0666);
-	t_arr = (target *) shmat(*shm_tgt_id, NULL, 0);
+	*t_arr = (target *) shmat(*shm_tgt_id, NULL, 0);
 	
 	int i;
 	for(i = 0; i < n; i++) {
-		t_arr[i].x = t_arr_orig[i].x;
-		t_arr[i].y = t_arr_orig[i].y;
-		t_arr[i].vi = t_arr_orig[i].vi;
-		t_arr[i].vf = t_arr_orig[i].vf;
+		(*t_arr)[i].x = t_arr_orig[i].x;
+		(*t_arr)[i].y = t_arr_orig[i].y;
+		(*t_arr)[i].vi = t_arr_orig[i].vi;
+		(*t_arr)[i].vf = t_arr_orig[i].vf;
 	}
-}
-
-/*
- *  Función para recuperar los valores finales de los
- *  objetivos en memoria compartida y liberar memoria.
- */
-void retrieve_targets(target *t_arr, target *t_arr_orig, int n, int *shm_tgt_id) {
-
-	int i;
-	for(i = 0; i < n; i++) {
-		t_arr_orig[i].vf = t_arr[i].vf;	
-	}
-	shmdt(t_arr);
-	shmctl(*shm_tgt_id, IPC_RMID, NULL);
 }

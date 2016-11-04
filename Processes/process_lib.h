@@ -34,12 +34,6 @@ void destroy_semaphores(sem_t *, int, int *);
  *  Función para copiar los objetivos en memoria compartida y
  *  ser modificados por varios procesos.
  */
-void share_targets(target *, target *, int, int *);
-
-/*
- *  Función para recuperar los valores finales de los
- *  objetivos en memoria compartida y liberar memoria.
- */
-void retrieve_targets(target *, target *, int, int *);
+void share_targets(target **, int, int *);
 
 #endif
